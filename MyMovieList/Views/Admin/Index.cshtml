@@ -1,0 +1,47 @@
+﻿@using MyMovieList.Logic.Data.Entities
+@model IEnumerable<User>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<br/>
+
+
+<div class="container pt-0 pb-3">
+	<div class="d-flex justify-content-between align-items-center">
+		<h1 class="mb-0">All Users</h1>
+		<a asp-action="Create" class="btn btn-success">Create a User</a>
+	</div>
+</div>
+
+<table class="table table-hover">
+	<thead>
+	<tr>
+		<th scope="col">ID</th>
+		<th scope="col">Name</th>
+		<th scope="col">Email</th>
+		<th scope="col">Update</th>
+		<th scope="col">Delete</th>
+	</tr>
+	</thead>
+	<tbody>
+	@foreach (User user in Model)
+	{
+		<tr class="table-active">
+			<td>@user.Id</td>
+			<td>@user.UserName</td>
+			<td>@user.Email</td>
+			<td>
+				<a class="btn btn-sm btn-warning" asp-action="Update" asp-route-id="@user.Id">
+					Update
+				</a>
+			</td>
+			<td>
+				<a class="btn btn-sm btn-danger" asp-action="Delete" asp-route-id="@user.Id">
+					Delete</a>
+			</td>
+		</tr>
+	}
+	</tbody>
+</table>

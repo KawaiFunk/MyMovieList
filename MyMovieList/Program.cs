@@ -19,6 +19,19 @@ builder.Services.AddDbContext<MovieDbContext>(options =>
 //Add Identity
 builder.Services.AddIdentity<User, IdentityRole>().AddEntityFrameworkStores<MovieDbContext>().AddDefaultTokenProviders();
 
+//Modify the default identity policy
+builder.Services.Configure<IdentityOptions>(options =>
+{
+    options.Password.RequireDigit = true;
+    options.Password.RequiredLength = 6;
+    options.Password.RequireLowercase = false;
+    options.Password.RequireNonAlphanumeric = false;
+    options.Password.RequireUppercase = true;
+    options.Password.RequiredUniqueChars = 1;
+    
+    options.User.AllowedUserNameCharacters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-._@+ ";
+});
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
