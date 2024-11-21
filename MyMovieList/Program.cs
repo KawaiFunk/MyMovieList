@@ -19,6 +19,16 @@ builder.Services.AddDbContext<MovieDbContext>(options =>
 //Add Identity
 builder.Services.AddIdentity<User, IdentityRole>().AddEntityFrameworkStores<MovieDbContext>().AddDefaultTokenProviders();
 
+//Add Authenticate Policy
+builder.Services.ConfigureApplicationCookie(opts => 
+{
+    opts.LoginPath = "/Authenticate/Login";
+    opts.Cookie.Name = "MyMovieList.Cookie";
+    opts.ExpireTimeSpan = TimeSpan.FromMinutes(60);
+    opts.SlidingExpiration = true;
+});
+
+
 //Modify the default identity policy
 builder.Services.Configure<IdentityOptions>(options =>
 {
